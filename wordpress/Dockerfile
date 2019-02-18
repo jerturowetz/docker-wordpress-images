@@ -7,14 +7,13 @@ RUN set -ex; \
   \
   apt-get update; \
   apt-get install -y --no-install-recommends \
+    ghostscript \
     zlib1g-dev \
     libicu-dev \
     g++ \
     imagemagick \
     libmagickwand-dev \
-		# unzip \
-		# iproute2 \
-		# libicu-dev \
+    libgs-dev \
   ; \
   \
   pecl install imagick; \
