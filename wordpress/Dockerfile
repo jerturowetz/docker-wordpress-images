@@ -55,3 +55,12 @@ RUN { \
 
 # Reload apache server without killing the container
 RUN kill -USR1 1
+
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+RUN usermod -u 1000 www-data
+
+WORKDIR /var/www/html
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["apache2-foreground"]
