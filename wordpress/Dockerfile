@@ -32,14 +32,16 @@ RUN set -ex; \
 	&& apt-get autoremove -y \
 	&& apt-get clean
 
-RUN pecl install xdebug \
-  && echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)" > /usr/local/etc/php/conf.d/xdebug.ini \
-  && echo "xdebug.remote_enable=on" >> /usr/local/etc/php/conf.d/xdebug.ini \
-  && echo "xdebug.remote_autostart=off" >> /usr/local/etc/php/conf.d/xdebug.ini \
-  && echo "xdebug.remote_port=9212" >> /usr/local/etc/php/conf.d/xdebug.ini \
-  && echo "xdebug.var_display_max_depth = 5" >> /usr/local/etc/php/conf.d/xdebug.ini \
-  && echo "xdebug.var_display_max_children = 256" >> /usr/local/etc/php/conf.d/xdebug.ini \
-  && echo "xdebug.var_display_max_data = 1024" >> /usr/local/etc/php/conf.d/xdebug.ini
+ARG WITH_XDEBUG=false
+
+RUN if [ $WITH_XDEBUG = "true" ] ; then \
+        pecl install xdebug; \
+        docker-php-ext-enable xdebug; \
+        echo "error_reporting = E_ALL" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini; \
+        echo "display_startup_errors = On" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini; \
+        echo "display_errors = On" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini; \
+        echo "xdebug.remote_enable=1" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini; \
+    fi ;
 
 # Set some php.ini defaults
 RUN { \
