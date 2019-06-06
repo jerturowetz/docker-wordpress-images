@@ -32,7 +32,7 @@ RUN set -ex; \
 	&& apt-get autoremove -y \
 	&& apt-get clean
 
-ARG WITH_XDEBUG=false
+ARG WITH_XDEBUG=true
 
 RUN if [ $WITH_XDEBUG = "true" ] ; then \
         pecl install xdebug; \
