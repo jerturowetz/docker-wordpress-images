@@ -1,4 +1,4 @@
-FROM wordpress:php7.2-cli
+FROM wordpress:cli-php7.2
 
 # Install extras
 RUN set -ex; \
