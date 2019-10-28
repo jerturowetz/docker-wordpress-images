@@ -13,24 +13,21 @@ RUN set -ex; \
     zlib1g-dev \
     g++ \
     libgs-dev \
-		git \
-		subversion \
-		wget \
-		libxml2-dev \
-		ssmtp \
-		imagemagick \
-		libmagickwand-dev \
-		unzip \
-		iproute2 \
-		libicu-dev \
-	&& pecl install imagick \
-	&& docker-php-ext-enable imagick \
+    git \
+    subversion \
+    wget \
+    libxml2-dev \
+    imagemagick \
+    libmagickwand-dev \
+    unzip \
+    iproute2 \
+    libicu-dev \
+  && docker-php-ext-enable imagick \
   && docker-php-ext-configure intl \
-	&& docker-php-ext-install soap intl \
-	&& echo "mailhub=mailcatcher:1025\nUseTLS=NO\nFromLineOverride=YES" > /etc/ssmtp/ssmtp.conf \
-	&& apt-get remove -y libmagickwand-dev libxml2-dev libicu-dev \
-	&& apt-get autoremove -y \
-	&& apt-get clean
+  && docker-php-ext-install soap intl \
+  && apt-get remove -y libmagickwand-dev libxml2-dev libicu-dev \
+  && apt-get autoremove -y \
+  && apt-get clean
 
 ARG WITH_XDEBUG=true
 
