@@ -1,4 +1,4 @@
-FROM wordpress:php7.2-apache
+FROM wordpress:php7.3-apache
 
 RUN curl -L https://phar.phpunit.de/phpunit.phar > /tmp/phpunit.phar \
 	&& chmod +x /tmp/phpunit.phar \
